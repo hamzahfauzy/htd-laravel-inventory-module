@@ -5,12 +5,13 @@ namespace App\Modules\Inventory\Resources;
 use App\Libraries\Abstract\Resource;
 use App\Modules\Inventory\Models\Category;
 
-class CategoryResource extends Resource {
+class CategoryResource extends Resource
+{
 
     protected static ?string $navigationGroup = 'Inventory';
     protected static ?string $navigationLabel = 'Category';
     protected static ?string $navigationIcon = 'bx bx-category';
-    protected static ?string $slug = 'inv-categories';
+    protected static ?string $slug = 'inventory/categories';
     protected static ?string $routeGroup = 'inventory';
 
     protected static $model = Category::class;
@@ -18,33 +19,45 @@ class CategoryResource extends Resource {
     public static function table()
     {
         return [
-            // 'creator.name' => [
-            //     'label' => 'User'
-            // ],
-            // 'action' => [
-            //     'label' => 'Action',
-            //     '_searchable' => true
-            // ],
-            // 'description' => [
-            //     'label' => 'Description',
-            //     '_searchable' => true
-            // ],
-            // // 'data' => [
-            // //     'label' => 'Data',
-            // // ],
-            // 'created_at' => [
-            //     'label' => 'Created At'
-            // ]
+            'code' => [
+                'label' => 'Code',
+                '_searchable' => true
+            ],
+            'name' => [
+                'label' => 'Name',
+                '_searchable' => true
+            ],
+            '_action'
         ];
     }
 
     public static function form()
     {
-        return [];
+        return [
+            'Basic Information' => [
+                'code' => [
+                    'label' => 'Code',
+                    'type' => 'text',
+                    'placeholder' => 'Enter your code'
+                ],
+                'name' => [
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'placeholder' => 'Enter your name',
+                    'required' => true,
+                ],
+
+            ]
+        ];
     }
 
     public static function detail()
     {
-        return [];
+        return [
+            'Basic Information' => [
+                'code' => 'Code',
+                'name' => 'Name',
+            ],
+        ];
     }
 }
