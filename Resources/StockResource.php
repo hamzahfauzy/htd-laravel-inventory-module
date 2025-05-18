@@ -20,9 +20,11 @@ class StockResource extends Resource
     public static function table()
     {
         return [
-            'item.name' => [
+            'item.completeName' => [
                 'label' => 'Item',
-                '_searchable' => true
+                '_searchable' => [
+                    'item.name'
+                ]
             ],
             'unit' => [
                 'label' => 'Unit',
@@ -33,11 +35,15 @@ class StockResource extends Resource
                 '_searchable' => true
             ],
             'record_type' => [
-                'label' => 'Record Type',
+                'label' => 'Type',
                 '_searchable' => true
             ],
             'description' => [
                 'label' => 'Description',
+                '_searchable' => true
+            ],
+            'creator.name' => [
+                'label' => 'Created By',
                 '_searchable' => true
             ],
             '_action'
@@ -49,7 +55,7 @@ class StockResource extends Resource
         $items = Item::get();
         $selectedItems = [];
         foreach ($items as $item) {
-            $selectedItems[$item->id] = $item->name;
+            $selectedItems[$item->id] = $item->completeName;
         }
 
         return [
@@ -72,12 +78,13 @@ class StockResource extends Resource
                 ],
                 'record_type' => [
                     'label' => 'Record Type',
-                    'type' => 'text',
-                    'placeholder' => 'Enter your Record Type',
+                    'type' => 'select',
+                    'options' => ['IN' => 'IN', 'OUT' => 'OUT'],
+                    'required' => true
                 ],
                 'description' => [
                     'label' => 'Description',
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'placeholder' => 'Enter your description'
                 ],
 

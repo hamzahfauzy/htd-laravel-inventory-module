@@ -31,6 +31,13 @@ class LocationResource extends Resource
                 'label' => 'Description',
                 '_searchable' => true
             ],
+            'creator.name' => [
+                'label' => 'Created By',
+                '_searchable' => true
+            ],
+            'created_at' => [
+                'label' => 'Date',
+            ],
             '_action'
         ];
     }
@@ -52,7 +59,7 @@ class LocationResource extends Resource
                 ],
                 'description' => [
                     'label' => 'Description',
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'placeholder' => 'Enter your description'
                 ],
 

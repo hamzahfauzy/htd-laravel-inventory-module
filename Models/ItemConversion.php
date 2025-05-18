@@ -4,16 +4,14 @@ namespace App\Modules\Inventory\Models;
 
 use App\Modules\Base\Traits\HasActivity;
 use App\Modules\Base\Traits\HasCreator;
-use App\Traits\HasDotNotationFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemLog extends Model
+class ItemConversion extends Model
 {
     //
+    use HasCreator, HasActivity;
 
-    use HasDotNotationFilter, HasCreator, HasActivity;
-
-    protected $table = 'inv_item_logs';
+    protected $table = 'inv_item_conversions';
     protected $guarded = ['id'];
 
     /**

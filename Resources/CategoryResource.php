@@ -27,6 +27,13 @@ class CategoryResource extends Resource
                 'label' => 'Name',
                 '_searchable' => true
             ],
+            'creator.name' => [
+                'label' => 'Created By',
+                '_searchable' => true
+            ],
+            'created_at' => [
+                'label' => 'Date',
+            ],
             '_action'
         ];
     }
@@ -45,8 +52,7 @@ class CategoryResource extends Resource
                     'type' => 'text',
                     'placeholder' => 'Enter your name',
                     'required' => true,
-                ],
-
+                ]
             ]
         ];
     }
@@ -58,6 +64,22 @@ class CategoryResource extends Resource
                 'code' => 'Code',
                 'name' => 'Name',
             ],
+        ];
+    }
+
+    public static function createRules()
+    {
+        return [
+            'code' => 'nullable|sometimes|unique:inv_categories',
+            'name' => 'required'
+        ];
+    }
+    
+    public static function updateRules()
+    {
+        return [
+            'code' => 'nullable|sometimes|unique:inv_categories',
+            'name' => 'required'
         ];
     }
 }

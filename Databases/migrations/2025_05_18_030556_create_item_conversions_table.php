@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inv_item_logs', function (Blueprint $table) {
+        Schema::create('inv_item_conversions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id')->nullable();
-            $table->foreign('item_id')->references('id')->on('inv_item_logs')->onDelete('restrict');
+            $table->foreign('item_id')->references('id')->on('inv_items')->onDelete('cascade');
 
-            $table->string('unit')->nullable();
-            $table->decimal('amount', 15, 2);
-            $table->string('record_type')->default('IN'); // IN, OUT
-            $table->text('description')->nullable();
-
+            $table->string('unit');
+            $table->decimal('value', 15, 2);
+            
             $table->timestamps();
 
             $table->unsignedBigInteger('created_by')->nullable();
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inv_item_logs');
+        Schema::dropIfExists('inv_item_conversions');
     }
 };

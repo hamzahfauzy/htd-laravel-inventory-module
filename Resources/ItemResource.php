@@ -36,13 +36,16 @@ class ItemResource extends Resource
                 'label' => 'Stock',
                 '_searchable' => true
             ],
-            'description' => [
-                'label' => 'Description',
-                '_searchable' => true
-            ],
             'location.name' => [
                 'label' => 'Location',
                 '_searchable' => true
+            ],
+            'creator.name' => [
+                'label' => 'Created By',
+                '_searchable' => true
+            ],
+            'created_at' => [
+                'label' => 'Date'
             ],
             '_action'
         ];
@@ -61,23 +64,29 @@ class ItemResource extends Resource
                 'sku' => [
                     'label' => 'SKU',
                     'type' => 'text',
-                    'placeholder' => 'Enter your SKU'
+                    'placeholder' => 'Enter SKU'
                 ],
                 'code' => [
                     'label' => 'Code',
                     'type' => 'text',
-                    'placeholder' => 'Enter your code'
+                    'placeholder' => 'Enter code'
                 ],
                 'name' => [
                     'label' => 'Name',
                     'type' => 'text',
-                    'placeholder' => 'Enter your name',
+                    'placeholder' => 'Enter name',
+                    'required' => true,
+                ],
+                'unit' => [
+                    'label' => 'Unit',
+                    'type' => 'tel',
+                    'placeholder' => 'Enter unit',
                     'required' => true,
                 ],
                 'description' => [
                     'label' => 'Description',
                     'type' => 'text',
-                    'placeholder' => 'Enter your description'
+                    'placeholder' => 'Enter description'
                 ],
                 'location_id' => [
                     'label' => 'Location',
@@ -97,6 +106,7 @@ class ItemResource extends Resource
                 'sku' => 'SKU',
                 'code' => 'Code',
                 'name' => 'Name',
+                'unit' => 'Unit',
                 'description' => 'Description',
                 'location.name' => 'Location',
             ],
