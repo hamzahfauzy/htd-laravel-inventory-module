@@ -52,4 +52,9 @@ class Item extends Model
     {
         return $this->name . ($this->sku || $this->code ? ' ('.($this->sku ? $this->sku .' - ' : '').$this->code.')' : '');
     }
+
+    public function conversions()
+    {
+        return $this->hasMany(ItemConversion::class, 'item_id', 'id');
+    }
 }

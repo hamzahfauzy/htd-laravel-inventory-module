@@ -5,6 +5,7 @@ namespace App\Modules\Inventory\Resources;
 use App\Libraries\Abstract\Resource;
 use App\Modules\Inventory\Models\Item;
 use App\Modules\Inventory\Models\ItemLog;
+use Illuminate\Http\Request;
 
 class StockResource extends Resource
 {
@@ -26,7 +27,7 @@ class StockResource extends Resource
                     'item.name'
                 ]
             ],
-            'unit' => [
+            'item.unit' => [
                 'label' => 'Unit',
                 '_searchable' => true
             ],
@@ -67,11 +68,11 @@ class StockResource extends Resource
                     'placeholder' => 'Choose Item',
                     'required' => true,
                 ],
-                'unit' => [
-                    'label' => 'Unit',
-                    'type' => 'text',
-                    'placeholder' => 'Enter your unit'
-                ],
+                // 'unit' => [
+                //     'label' => 'Unit',
+                //     'type' => 'text',
+                //     'placeholder' => 'Enter your unit'
+                // ],
                 'amount' => [
                     'label' => 'Amount',
                     'type' => 'text',
@@ -99,10 +100,12 @@ class StockResource extends Resource
         return [
             'Basic Information' => [
                 'item.name' => 'Item',
-                'unit' => 'Unit',
+                'item.unit' => 'Unit',
                 'amount' => 'Amount',
                 'record_type' => 'Record Type',
                 'description' => 'Description',
+                'creator.name' => 'Created By',
+                'created_at' => 'Date',
             ],
         ];
     }
