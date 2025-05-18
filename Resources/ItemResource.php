@@ -92,6 +92,7 @@ class ItemResource extends Resource
                     'label' => 'Location',
                     'type' => 'select',
                     'options' => $selectedLocations,
+                    'placeholder' => 'Choose Location',
                     'required' => true,
                 ],
 

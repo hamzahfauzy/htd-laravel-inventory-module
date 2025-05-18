@@ -64,6 +64,7 @@ class StockResource extends Resource
                     'label' => 'Item',
                     'type' => 'select',
                     'options' => $selectedItems,
+                    'placeholder' => 'Choose Item',
                     'required' => true,
                 ],
                 'unit' => [
