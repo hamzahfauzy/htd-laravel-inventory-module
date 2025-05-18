@@ -15,6 +15,7 @@ class ItemLog extends Model
 
     protected $table = 'inv_item_logs';
     protected $guarded = ['id'];
+    protected $appends = ['amountLabel'];
 
     /**
      * Prepare a date for array / JSON serialization.
@@ -30,5 +31,10 @@ class ItemLog extends Model
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id', 'id');
+    }
+
+    public function getAmountLabelAttribute()
+    {
+        return ($this->record_type == 'OUT' ? '-' : '') . $this->amount;
     }
 }

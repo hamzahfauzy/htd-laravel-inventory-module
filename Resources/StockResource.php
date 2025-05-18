@@ -6,6 +6,7 @@ use App\Libraries\Abstract\Resource;
 use App\Modules\Inventory\Models\Item;
 use App\Modules\Inventory\Models\ItemLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockResource extends Resource
 {
@@ -18,26 +19,36 @@ class StockResource extends Resource
 
     protected static $model = ItemLog::class;
 
+    public static function getModel()
+    {
+        return static::$model::select('inv_item_logs.*', 
+                                    'inv_items.name as item_name', 
+                                    'inv_items.name as item_unit', 
+                                    DB::raw('CASE WHEN inv_item_logs.record_type = "IN" THEN inv_item_logs.amount ELSE inv_item_logs.amount*-1 END stock_amount'))
+                    ->join('inv_items','inv_items.id','=','inv_item_logs.item_id');
+    }
+
     public static function table()
     {
         return [
             'item.completeName' => [
                 'label' => 'Item',
                 '_searchable' => [
-                    'item.name'
-                ]
+                    'item.name',
+                    'item.code',
+                    'item.sku'
+                ],
+                '_order' => 'item_name'
             ],
             'item.unit' => [
                 'label' => 'Unit',
-                '_searchable' => true
+                '_searchable' => true,
+                '_order' => 'item_unit'
             ],
-            'amount' => [
+            'stock_amount' => [
                 'label' => 'Amount',
-                '_searchable' => true
-            ],
-            'record_type' => [
-                'label' => 'Type',
-                '_searchable' => true
+                '_searchable' => 'amount',
+                '_order' => 'stock_amount'
             ],
             'description' => [
                 'label' => 'Description',
@@ -46,6 +57,9 @@ class StockResource extends Resource
             'creator.name' => [
                 'label' => 'Created By',
                 '_searchable' => true
+            ],
+            'created_at' => [
+                'label' => 'Date',
             ],
             '_action'
         ];
