@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class StockReportResource extends Resource {
 
     protected static ?string $navigationGroup = 'Reports';
-    protected static ?string $navigationLabel = 'Stock';
+    protected static ?string $navigationLabel = 'Stock Report';
     protected static ?string $navigationIcon = 'bx bxs-layer';
     protected static ?string $slug = 'reports/stocks';
     protected static ?string $routeGroup = 'reports';
@@ -31,8 +31,8 @@ class StockReportResource extends Resource {
         $model = static::$model::select(
                             'inv_items.*', 
                             DB::raw("COALESCE(SUM(CASE 
-                                        WHEN inv_item_logs.created_at < '$date' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount
-                                        WHEN inv_item_logs.created_at < '$date' AND inv_item_logs.record_type = 'OUT' THEN -inv_item_logs.amount
+                                        WHEN inv_item_logs.created_at < '$date 00:00:00' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount
+                                        WHEN inv_item_logs.created_at < '$date 00:00:00' AND inv_item_logs.record_type = 'OUT' THEN -inv_item_logs.amount
                                         ELSE 0 END), 0) AS initial_stock"),
                             DB::raw("COALESCE(SUM(CASE 
                                         WHEN DATE_FORMAT(inv_item_logs.created_at, '%Y-%m-%d') = '$date' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount 
@@ -41,8 +41,8 @@ class StockReportResource extends Resource {
                                         WHEN DATE_FORMAT(inv_item_logs.created_at, '%Y-%m-%d') = '$date' AND inv_item_logs.record_type = 'OUT' THEN inv_item_logs.amount 
                                         ELSE 0 END), 0) AS out_stock"),
                             DB::raw("COALESCE(SUM(CASE 
-                                        WHEN inv_item_logs.created_at < '$date' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount
-                                        WHEN inv_item_logs.created_at < '$date' AND inv_item_logs.record_type = 'OUT' THEN -inv_item_logs.amount
+                                        WHEN inv_item_logs.created_at < '$date 00:00:00' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount
+                                        WHEN inv_item_logs.created_at < '$date 00:00:00' AND inv_item_logs.record_type = 'OUT' THEN -inv_item_logs.amount
                                         ELSE 0 END), 0) + COALESCE(SUM(CASE 
                                         WHEN DATE_FORMAT(inv_item_logs.created_at, '%Y-%m-%d') = '$date' AND inv_item_logs.record_type = 'IN' THEN inv_item_logs.amount 
                                         ELSE 0 END), 0) - COALESCE(SUM(CASE 
@@ -50,12 +50,9 @@ class StockReportResource extends Resource {
                                         ELSE 0 END), 0) AS final_stock"),
                         )
                         ->join('inv_item_logs','inv_items.id','=','inv_item_logs.item_id')
-                        ->groupBy('inv_items.id');
+                        ->groupBy('inv_items.id')
+                        ->where('inv_item_logs.created_at', '<=', $date.' 23:59:59');
 
-        if(isset($_GET['date']))
-        {
-            $model = $model->where('inv_item_logs.created_at', '<=', $_GET['date'].' 23:59:59');
-        }
 
         return $model;
     }
