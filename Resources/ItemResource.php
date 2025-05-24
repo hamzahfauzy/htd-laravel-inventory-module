@@ -36,6 +36,10 @@ class ItemResource extends Resource
                 'label' => 'Stock',
                 '_searchable' => true
             ],
+            'low_stock_alert' => [
+                'label' => 'Low Stock Alert',
+                '_searchable' => true
+            ],
             'location.name' => [
                 'label' => 'Location',
                 '_searchable' => true
@@ -79,8 +83,14 @@ class ItemResource extends Resource
                 ],
                 'unit' => [
                     'label' => 'Unit',
-                    'type' => 'tel',
+                    'type' => 'text',
                     'placeholder' => 'Enter unit',
+                    'required' => true,
+                ],
+                'low_stock_alert' => [
+                    'label' => 'Low Stock Alert',
+                    'type' => 'number',
+                    'placeholder' => 'Enter low stock alert',
                     'required' => true,
                 ],
                 'description' => [
@@ -108,6 +118,7 @@ class ItemResource extends Resource
                 'code' => 'Code',
                 'name' => 'Name',
                 'unit' => 'Unit',
+                'low_stock_alert' => 'Low Stock Alert',
                 'description' => 'Description',
                 'location.name' => 'Location',
             ],
