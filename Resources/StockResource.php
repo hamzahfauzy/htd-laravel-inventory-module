@@ -67,7 +67,7 @@ class StockResource extends Resource
 
     public static function form()
     {
-        $items = Item::get();
+        $items = Item::orderBy('name','asc')->get();
         $selectedItems = [];
         foreach ($items as $item) {
             $selectedItems[$item->id] = $item->completeName;
@@ -77,7 +77,7 @@ class StockResource extends Resource
             'Basic Information' => [
                 'item_id' => [
                     'label' => 'Item',
-                    'type' => 'select',
+                    'type' => 'select2',
                     'options' => $selectedItems,
                     'placeholder' => 'Choose Item',
                     'required' => true,
