@@ -34,7 +34,7 @@ class ItemResource extends Resource
             ],
             'stock' => [
                 'label' => 'Stock',
-                '_searchable' => true
+                '_searchable' => false
             ],
             'low_stock_alert' => [
                 'label' => 'Low Stock Alert',

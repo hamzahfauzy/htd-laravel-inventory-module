@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inv_item_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id')->nullable();
-            $table->foreign('item_id')->references('id')->on('inv_item_logs')->onDelete('restrict');
+            $table->foreign('item_id')->references('id')->on('inv_items')->onDelete('restrict');
 
             $table->string('unit')->nullable();
             $table->decimal('amount', 15, 2);

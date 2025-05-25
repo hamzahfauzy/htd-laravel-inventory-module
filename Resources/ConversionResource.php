@@ -55,7 +55,7 @@ class ConversionResource extends Resource
             'Basic Information' => [
                 'item_id' => [
                     'label' => 'Item',
-                    'type' => 'select',
+                    'type' => 'select2',
                     'options' => $selectedItems,
                     'placeholder' => 'Choose Item',
                     'required' => true,
