@@ -52,7 +52,9 @@ class StockResource extends Resource
             ],
             'description' => [
                 'label' => 'Description',
-                '_searchable' => true
+                '_searchable' => [
+                    'inv_item_logs.description',
+                ]
             ],
             'creator.name' => [
                 'label' => 'Created By',
